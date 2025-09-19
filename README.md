@@ -237,9 +237,9 @@ Zero-shot detection results on the challenging SpatialLM-Testset are reported in
 
 <div align="center">
 
-|                                                            Layout Estimation                                                            |                                                          Object Detection                                                          |                                                       Zero-shot Reconstruction                                                        |
-| :-------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------: |
-|                                                  ![Structured3D](./figures/stru3d.jpg)                                                  |                                                 ![ScanNet](./figures/scannet.jpg)                                                  |                                                 ![Zero-shot](./figures/zeroshot.jpg)                                                  |
+| Layout Estimation | Object Detection | Zero-shot Reconstruction |
+| :---------------: | :--------------: | :----------------------: |
+| ![Structured3D](./figures/stru3d.jpg) | ![ScanNet](./figures/scannet.jpg) | ![Zero-shot](./figures/zeroshot.jpg) |
 | [Structured3D Results](https://manycore-research-azure.kujiale.com/manycore-research/SpatialLM/supplementary/visualization_layout.html) | [ScanNet Results](https://manycore-research-azure.kujiale.com/manycore-research/SpatialLM/supplementary/visualization_object.html) | [Zeroshot Results](https://manycore-research-azure.kujiale.com/manycore-research/SpatialLM/supplementary/visualization_zeroshot.html) |
 
 </div>
@@ -258,14 +258,11 @@ SpatialLM1.1 are built upon Sonata point cloud encoder, model weight is licensed
 If you find this work useful, please consider citing:
 
 ```bibtex
-@article{SpatialLM,
-    title         = {SpatialLM: Training Large Language Models for Structured Indoor Modeling},
-    author        = {Mao, Yongsen and Zhong, Junhao and Fang, Chuan and Zheng, Jia and Tang, Rui and Zhu, Hao and Tan, Ping and Zhou, Zihan},
-    journal       = {arXiv preprint},
-    year          = {2025},
-    eprint        = {2506.07491},
-    archivePrefix = {arXiv},
-    primaryClass  = {cs.CV}
+@inproceedings{SpatialLM,
+  title     = {SpatialLM: Training Large Language Models for Structured Indoor Modeling},
+  author    = {Mao, Yongsen and Zhong, Junhao and Fang, Chuan and Zheng, Jia and Tang, Rui and Zhu, Hao and Tan, Ping and Zhou, Zihan},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2025}
 }
 ```
 
