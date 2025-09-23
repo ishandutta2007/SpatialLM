@@ -20,12 +20,16 @@
 <div align="center" style="line-height: 1;">
     <a href="https://huggingface.co/manycore-research/SpatialLM1.1-Qwen-0.5B" target="_blank" style="margin: 2px;"><img alt="Hugging Face"
     src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-SpatialLM-ffc107?color=ffc107&logoColor=white" style="display: inline-block; vertical-align: middle;"/></a>
+    <a href="https://huggingface.co/datasets/manycore-research/SpatialLM-Dataset" target="_blank" style="margin: 2px;"><img alt="Dataset"
+    src="https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-Dataset-ffc107?color=ffc107&logoColor=white" style="display: inline-block; vertical-align: middle;"/></a>
     <a href="https://huggingface.co/datasets/manycore-research/SpatialLM-Testset" target="_blank" style="margin: 2px;"><img alt="Dataset"
     src="https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-Testset-ffc107?color=ffc107&logoColor=white" style="display: inline-block; vertical-align: middle;"/></a>
 </div>
 
 ## ✨ News
 
+- [Sept, 2025] [SpatialLM-Dataset](https://huggingface.co/datasets/manycore-research/SpatialLM-Dataset) is now available on Hugging Face.
+- [Sept, 2025] SpatialLM accepted at NeurIPS 2025.
 - [Jun, 2025] Added finetuning instructions in [FINETUNE.md](./FINETUNE.md).
 - [Jun, 2025] Check out our new models: [SpatialLM1.1-Llama-1B](https://huggingface.co/manycore-research/SpatialLM1.1-Llama-1B) and [SpatialLM1.1-Qwen-0.5B](https://huggingface.co/manycore-research/SpatialLM1.1-Qwen-0.5B), now available on Hugging Face. SpatialLM1.1 doubles the point cloud resolution, incorporates a more powerful point cloud encoder [Sonata](https://xywu.me/sonata/) and supports detection with user-specified categories.
 - [Jun, 2025] SpatialLM [Technical Report](https://arxiv.org/abs/2506.07491) is now on arXiv.
@@ -156,6 +160,20 @@ We provide an example of how to use our model to estimate scene layout starting 
 
 For instructions on fine-tuning SpatialLM on your own data, please refer to [FINETUNE.md](./FINETUNE.md). We provide an example using the [ARKitScenes](https://github.com/apple/ARKitScenes) dataset.
 
+## SpatialLM Dataset
+
+The SpatialLM dataset is a large-scale, high-quality synthetic dataset designed by professional 3D designers and used for real-world production. It contains point clouds from 12,328 diverse indoor scenes comprising 54,778 rooms, each paired with rich ground-truth 3D annotations. SpatialLM dataset provides an additional valuable resource for advancing research in indoor scene understanding, 3D perception, and related applications.
+
+For access to photorealistic RGB/Depth/Normal/Semantic/Instance panoramic renderings and camera trajectories used to generate the SpatialLM point clouds, please refer to the [SpatialGen project](https://manycore-research.github.io/SpatialGen) for more details.
+
+<div align="center">
+
+|    **Dataset**    | **Download**                                                                       |
+| :---------------: | ---------------------------------------------------------------------------------- |
+| SpatialLM-Dataset | [🤗 Datasets](https://huggingface.co/datasets/manycore-research/SpatialLM-Dataset) |
+
+</div>
+
 ## SpatialLM Testset
 
 We provide a test set of 107 preprocessed point clouds, reconstructed from RGB videos using [MASt3R-SLAM](https://github.com/rmurai0610/MASt3R-SLAM). SpatialLM-Testset is quite challenging compared to prior clean RGBD scans datasets due to the noises and occlusions in the point clouds reconstructed from monocular RGB videos.
@@ -174,12 +192,14 @@ We provide a test set of 107 preprocessed point clouds, reconstructed from RGB v
 
 Layout estimation focuses on predicting architectural elements, i.e., walls, doors, and windows, within an indoor scene. We evaluated this task on the [Structured3D](https://structured3d-dataset.org) dataset. For [RoomFormer](https://github.com/ywyue/RoomFormer), we directly downloaded the model checkpoint. SceneScript and SpatialLM were first trained on our dataset, and further fine-tuned on Structured3D.
 
+We thank @chinmay0301ucsd for identifying and fixing a bug [#88](https://github.com/manycore-research/SpatialLM/pull/88) in the evaluation script that affected door and window metrics. As a result, the scores are higher than previously reported.
+
 <div align="center">
 
 |   **Method**    | **RoomFormer** | **SceneScript (finetuned)** | **SpatialLM1.1-Qwen-0.5B (finetuned)** |
 | :-------------: | :------------: | :-------------------------: | :------------------------------------: |
-| **F1 @.25 IoU** |      70.4      |            83.1             |                  86.5                  |
-| **F1 @.5 IoU**  |      67.2      |            80.8             |                  84.6                  |
+| **F1 @.25 IoU** |      83.4      |            90.4             |                  94.3                  |
+| **F1 @.5 IoU**  |      81.4      |            89.2             |                  93.5                  |
 
 </div>
 
@@ -206,8 +226,8 @@ Zero-shot detection results on the challenging SpatialLM-Testset are reported in
 | :-------------: | :-----------------------: | :------------------------: |
 |   **Layout**    |   **F1 @.25 IoU (2D)**    |    **F1 @.25 IoU (2D)**    |
 |      wall       |           68.9            |            68.2            |
-|      door       |           46.3            |            43.1            |
-|     window      |           43.8            |            47.4            |
+|      door       |           49.1            |            47.4            |
+|     window      |           47.0            |            51.4            |
 |                 |                           |                            |
 |   **Objects**   |   **F1 @.25 IoU (3D)**    |    **F1 @.25 IoU (2D)**    |
 |     curtain     |           34.9            |            37.0            |
@@ -237,9 +257,9 @@ Zero-shot detection results on the challenging SpatialLM-Testset are reported in
 
 <div align="center">
 
-| Layout Estimation | Object Detection | Zero-shot Reconstruction |
-| :---------------: | :--------------: | :----------------------: |
-| ![Structured3D](./figures/stru3d.jpg) | ![ScanNet](./figures/scannet.jpg) | ![Zero-shot](./figures/zeroshot.jpg) |
+|                                                            Layout Estimation                                                            |                                                          Object Detection                                                          |                                                       Zero-shot Reconstruction                                                        |
+| :-------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------: |
+|                                                  ![Structured3D](./figures/stru3d.jpg)                                                  |                                                 ![ScanNet](./figures/scannet.jpg)                                                  |                                                 ![Zero-shot](./figures/zeroshot.jpg)                                                  |
 | [Structured3D Results](https://manycore-research-azure.kujiale.com/manycore-research/SpatialLM/supplementary/visualization_layout.html) | [ScanNet Results](https://manycore-research-azure.kujiale.com/manycore-research/SpatialLM/supplementary/visualization_object.html) | [Zeroshot Results](https://manycore-research-azure.kujiale.com/manycore-research/SpatialLM/supplementary/visualization_zeroshot.html) |
 
 </div>
