@@ -9,7 +9,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--spatiallm_weight",
         type=str,
-        default="manycore-research/SpatialLM-Qwen-0.5B",
+        default="manycore-research/SpatialLM1.1-Qwen-0.5B",
         help="Path to the SpatialLM weight",
     )
     parser.add_argument(
